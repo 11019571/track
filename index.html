@@ -1,40 +1,50 @@
-<!DOCTYPE HTML>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <style>
-      html, body {
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      #map {
-        /* configure the size of the map */
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-      // initialize Leaflet
-      var map = L.map('map').setView({lon: 0, lat: 0}, 2);
+<!DOCTYPE html>
+<html>
+<head>
+  <title>leaflet-map-simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
 
-      // add the OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(map);
+  <!-- Load Leaflet code library: see http://leafletjs.com/download.html -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-      // show the scale bar on the lower left corner
-      L.control.scale().addTo(map);
+  <!-- Position the map and title with Cascading Style Sheet (CSS) -->
+  <style>
+  body { margin:0; padding:0; }
+  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
+  </style>
+</head>
+<body>
 
-      // show a marker on the map
-      L.marker({lon: 0, lat: 0}).bindPopup('The center of the world').addTo(map);
-    </script>
-  </body>
+  <!-- Display the map and title with HTML division tags  -->
+  <div id="map-title">EDIT map title</div>
+  <div id="map"></div>
+
+  <!-- Create the interactive map content with JavaScript (.js) -->
+  <script>
+
+  /* Set up the initial map center and zoom level */
+  var map = L.map('map', {
+    center: [41.77, -72.69], // EDIT coordinates to re-center map
+    zoom: 12,  // EDIT from 1 (zoomed out) to 18 (zoomed in)
+    scrollWheelZoom: false,
+    tap: false
+  });
+
+  /* display basemap tiles -- see others at https://leaflet-extras.github.io/leaflet-providers/preview/ */
+  L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://osm.org/copyright">\
+        OpenStreetMap</a> contributors, &copy;\
+        <a href="https://carto.com/attribution">CARTO</a>'
+  }).addTo(map);
+
+  /* Display a point marker with pop-up text */
+  L.marker([41.77, -72.69]).addTo(map) // EDIT marker coordinates
+  .bindPopup("Insert pop-up text here"); // EDIT pop-up text message
+
+  </script>
+</body>
 </html>
